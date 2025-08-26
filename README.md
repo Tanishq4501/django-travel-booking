@@ -36,7 +36,7 @@ A modern, space-themed Django web application for booking flights, trains, and b
    - Travel options cards with gradient effects
    - Black hole inspired background
 -->
-*[Screenshot placeholder - Show the main dashboard with available travel options and search functionality]*
+![](https://github.com/Tanishq4501/django-travel-booking/blob/main/ss/home.PNG)
 
 ---
 
@@ -46,7 +46,8 @@ A modern, space-themed Django web application for booking flights, trains, and b
    - Signup page with password strength indicator
    - Form validation states
 -->
-*[Screenshot placeholder - Show the login/signup forms with cosmic styling and interactive elements]*
+![](https://github.com/Tanishq4501/django-travel-booking/blob/main/ss/login.PNG)
+![](https://github.com/Tanishq4501/django-travel-booking/blob/main/ss/signup.PNG)
 
 ---
 
@@ -56,7 +57,7 @@ A modern, space-themed Django web application for booking flights, trains, and b
    - Booking form with seat selector
    - Cost calculator and terms section
 -->
-*[Screenshot placeholder - Show the booking confirmation page with route visualization and cost breakdown]*
+![](https://github.com/Tanishq4501/django-travel-booking/blob/main/ss/booking.PNG)
 
 ---
 
@@ -66,7 +67,7 @@ A modern, space-themed Django web application for booking flights, trains, and b
    - Booking status badges
    - Cancel booking functionality
 -->
-*[Screenshot placeholder - Show the user's booking history with status indicators and management options]*
+![](https://github.com/Tanishq4501/django-travel-booking/blob/main/ss/my-bookings.PNG)
 
 ---
 
