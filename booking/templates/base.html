@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TravelCo | Your Next Adventure</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Heroicons for Icons -->
+    <script src="https://unpkg.com/heroicons@2.1.1/24/outline/index.js"></script>
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e7eb;
+        }
+        .glow-on-hover {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .glow-on-hover:hover {
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+        }
+        .form-input {
+            background-color: #1f2937;
+            border: 1px solid #4b5563;
+            color: #e5e7eb;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Background Glows -->
+    <div class="absolute top-0 left-0 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse"></div>
+    <div class="absolute top-0 right-0 w-72 h-72 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+    <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-pink-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse animation-delay-4000"></div>
+
+    <div class="relative z-10">
+        <nav class="bg-black bg-opacity-30 backdrop-blur-lg border-b border-gray-800">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a class="text-2xl font-bold text-white hover:text-blue-400 transition-colors" href="{% url 'home' %}">TravelCo</a>
+                <div class="flex items-center space-x-6">
+                    {% if user.is_authenticated %}
+                        <a class="text-gray-300 hover:text-blue-400 transition-colors" href="{% url 'my_bookings' %}">My Bookings</a>
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="text-gray-300 hover:text-pink-400 transition-colors">Logout</button>
+                        </form>
+                    {% else %}
+                        <a class="text-gray-300 hover:text-blue-400 transition-colors" href="{% url 'login' %}">Login</a>
+                        <a class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 glow-on-hover" href="{% url 'signup' %}">Sign Up</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container mx-auto px-6 py-12">
+            {% if messages %}
+                <div class="mb-8">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg {% if message.tags == 'success' %} bg-green-500/20 text-green-300 border border-green-500/30 {% else %} bg-red-500/20 text-red-300 border border-red-500/30 {% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

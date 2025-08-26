@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mb-12">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-2">Explore Your Next Adventure</h1>
+    <p class="text-lg text-gray-400">Find the best travel options tailored for you.</p>
+</div>
+
+<!-- Filter Form -->
+<form method="get" class="bg-gray-800/50 p-4 rounded-xl mb-12 flex flex-col md:flex-row items-center gap-4 backdrop-blur-sm border border-gray-700">
+    <input type="text" name="source" class="form-input w-full md:w-1/4 px-4 py-3 rounded-lg" placeholder="Source" value="{{ request.GET.source }}">
+    <input type="text" name="destination" class="form-input w-full md:w-1/4 px-4 py-3 rounded-lg" placeholder="Destination" value="{{ request.GET.destination }}">
+    <select name="type" class="form-input w-full md:w-1/4 px-4 py-3 rounded-lg">
+        <option value="">All Types</option>
+        <option value="Flight" {% if request.GET.type == 'Flight' %}selected{% endif %}>Flight</option>
+        <option value="Train" {% if request.GET.type == 'Train' %}selected{% endif %}>Train</option>
+        <option value="Bus" {% if request.GET.type == 'Bus' %}selected{% endif %}>Bus</option>
+    </select>
+    <button type="submit" class="w-full md:w-1/4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 glow-on-hover">Filter</button>
+</form>
+
+<!-- Travel Options Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for option in travel_options %}
+    <div class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+        <div class="relative bg-gray-900 border border-gray-800 rounded-lg p-6 h-full flex flex-col">
+            <div class="flex items-center mb-4">
+                {% if option.type == 'Flight' %}
+                    <div class="w-10 h-10 bg-blue-500/20 text-blue-300 rounded-lg flex items-center justify-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    </div>
+                {% elif option.type == 'Train' %}
+                    <div class="w-10 h-10 bg-green-500/20 text-green-300 rounded-lg flex items-center justify-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5v-1.875a3.375 3.375 0 003.375-3.375h1.5a1.125 1.125 0 011.125 1.125v-1.5a3.375 3.375 0 00-3.375-3.375H3.375m15.75 9V14.25a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 003.375-3.375h1.5c1.86 0 3.375 1.515 3.375 3.375V18.75zm-17.25-9a3.375 3.375 0 003.375 3.375h1.5a1.125 1.125 0 011.125 1.125v1.5a3.375 3.375 0 00-3.375 3.375H3.375V9.75z" /></svg>
+                    </div>
+                {% else %}
+                    <div class="w-10 h-10 bg-yellow-500/20 text-yellow-300 rounded-lg flex items-center justify-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75h7.5a3.75 3.75 0 003.75-3.75v-7.5a3.75 3.75 0 00-3.75-3.75h-7.5a3.75 3.75 0 00-3.75 3.75v7.5a3.75 3.75 0 003.75 3.75z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 18.75l-1.5-1.5L6 18.75m12 0l-1.5-1.5L15 18.75M3 14.25l1.5-1.5L6 14.25m15 0l1.5-1.5L21 14.25M4.5 9.75l1.5 1.5L7.5 9.75m12 0l1.5 1.5L21 9.75M9 3.75l1.5 1.5L12 3.75m3 0l1.5 1.5L18 3.75" /></svg>
+                    </div>
+                {% endif %}
+                <h3 class="text-xl font-bold text-white">{{ option.type }}: {{ option.source }} to {{ option.destination }}</h3>
+            </div>
+            <div class="flex-grow space-y-3 text-gray-400">
+                <p><strong>Departure:</strong> {{ option.departure_time|date:"d M Y, H:i" }}</p>
+                <p><strong>Seats Left:</strong> {{ option.available_seats }}</p>
+            </div>
+            <div class="mt-6 flex justify-between items-center">
+                <p class="text-2xl font-bold text-white">${{ option.price }}</p>
+                <a href="{% url 'book_travel' option.id %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 glow-on-hover">Book Now</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-full text-center py-12 bg-gray-800/50 rounded-lg">
+        <p class="text-gray-400">No travel options available matching your criteria.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
