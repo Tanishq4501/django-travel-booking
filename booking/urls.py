@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('create-initial-superuser-12345xyz/', views.create_superuser_view, name='create_superuser'),
     path('',views.home,name='home'),
     path('signup/',views.SignUpView.as_view(),name='signup'),
     path('book/<int:travel_id>/',views.book_travel,name='book_travel'),

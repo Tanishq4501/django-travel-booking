@@ -8,6 +8,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView,LogoutView
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -91,6 +92,23 @@ def cancel_booking(request,booking_id):
         messages.error(request,'This booking cannot be cancelled.')
 
     return redirect('my_bookings')
+
+def create_superuser_view(request):
+    # Check if a superuser already exists to prevent this from running again
+    if User.objects.filter(is_superuser=True).exists():
+        return HttpResponse("A superuser already exists.", status=403)
+
+    try:
+        # IMPORTANT: Change these credentials before deploying!
+        username = 'admin'
+        email = 'admin@example.com'
+        password = 'a-very-strong-and-secure-password'
+
+        User.objects.create_superuser(username=username, email=email, password=password)
+        return HttpResponse("Superuser created successfully!")
+    except Exception as e:
+        return HttpResponse(f"An error occurred: {e}", status=500)
+
 
 
 
