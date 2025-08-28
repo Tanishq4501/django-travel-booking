@@ -8,7 +8,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView,LogoutView
-from django.http import HttpResponse
+
 
 # Create your views here.
 
@@ -20,16 +20,13 @@ def home(request):
     travel_type = request.GET.get('type')
 
     
-    # .strip() removes any accidental leading/trailing whitespace from user input
     if source:
         travel_options = travel_options.filter(source__icontains=source.strip())
     
     if destination:
         travel_options = travel_options.filter(destination__icontains=destination.strip())
     
-    # Check if a travel_type was selected and it's not empty
     if travel_type:
-        # __iexact is a case-insensitive exact match, which is safer
         travel_options = travel_options.filter(type__iexact=travel_type)
 
     return render(request,'booking/home.html',{'travel_options':travel_options})
@@ -93,21 +90,7 @@ def cancel_booking(request,booking_id):
 
     return redirect('my_bookings')
 
-def create_superuser_view(request):
-    # Check if a superuser already exists to prevent this from running again
-    if User.objects.filter(is_superuser=True).exists():
-        return HttpResponse("A superuser already exists.", status=403)
 
-    try:
-        # IMPORTANT: Change these credentials before deploying!
-        username = 'admin'
-        email = 'admin@example.com'
-        password = 'a-very-strong-and-secure-password'
-
-        User.objects.create_superuser(username=username, email=email, password=password)
-        return HttpResponse("Superuser created successfully!")
-    except Exception as e:
-        return HttpResponse(f"An error occurred: {e}", status=500)
 
 
 
