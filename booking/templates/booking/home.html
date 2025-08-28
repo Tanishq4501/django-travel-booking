@@ -6,7 +6,6 @@
     <p class="text-lg text-gray-400">Find the best travel options tailored for you.</p>
 </div>
 
-<!-- Filter Form -->
 <form method="get" class="bg-gray-800/50 p-4 rounded-xl mb-12 flex flex-col md:flex-row items-center gap-4 backdrop-blur-sm border border-gray-700">
     <input type="text" name="source" class="form-input w-full md:w-1/4 px-4 py-3 rounded-lg" placeholder="Source" value="{{ request.GET.source }}">
     <input type="text" name="destination" class="form-input w-full md:w-1/4 px-4 py-3 rounded-lg" placeholder="Destination" value="{{ request.GET.destination }}">
@@ -19,7 +18,6 @@
     <button type="submit" class="w-full md:w-1/4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 glow-on-hover">Filter</button>
 </form>
 
-<!-- Travel Options Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {% for option in travel_options %}
     <div class="group relative">
@@ -46,7 +44,7 @@
                 <p><strong>Seats Left:</strong> {{ option.available_seats }}</p>
             </div>
             <div class="mt-6 flex justify-between items-center">
-                <p class="text-2xl font-bold text-white">${{ option.price }}</p>
+                <p class="text-2xl font-bold text-white">₹{{ option.price }}</p>
                 <a href="{% url 'book_travel' option.id %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 glow-on-hover">Book Now</a>
             </div>
         </div>
