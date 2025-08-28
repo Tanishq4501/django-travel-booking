@@ -33,11 +33,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-od!5@9*+c6wke6s#o*(izr2map=p1u^61rn8(yw9vl^#xi=uvf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
+# Replace your old ALLOWED_HOSTS with this
 ALLOWED_HOSTS = []
 
-
+if not DEBUG:
+    # Add your Render app's hostname here
+    ALLOWED_HOSTS.append('django-travel-booking.onrender.com')
+else:
+    # Allow localhost for local development
+    ALLOWED_HOSTS.append('127.0.0.1')
+    
 # Application definition
 
 INSTALLED_APPS = [
