@@ -124,7 +124,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Tanishq**
 -   GitHub: [@Tanishq4501](https://github.com/Tanishq4501)
--   Email: [tanishqchoudhary5689@gmail.com]
+-   Email: tanishqchoudhary5689@gmail.com
 
 ---
 
